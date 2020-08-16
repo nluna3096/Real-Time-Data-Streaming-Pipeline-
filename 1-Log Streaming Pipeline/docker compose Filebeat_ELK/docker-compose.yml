@@ -1,0 +1,76 @@
+version: '3'
+services:
+  Filebeat:
+    build: 
+     context: .
+     dockerfile: DockerfileFilebeat    
+    image: kafka-filebeat 
+    volumes:
+    - C:\data-pipeline:/root/logstream    
+    container_name: filebeat
+    networks:
+     kafka-network:
+      aliases:
+      - filebeat
+    ports:
+      - "9500:9500"
+    expose:
+      - "9500"       
+  ElasticSearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.3.2  
+    container_name: elasticsearch
+    networks:
+     kafka-network:
+      aliases:
+      - elasticsearch
+    environment:
+      - discovery.type=single-node 
+      - "ES_JAVA_OPTS=-Xmx1024m -Xms1024m"
+    ports:
+      - "9200:9200"
+    expose:
+      - "9200"      
+    depends_on:
+    - Filebeat 
+  Kibana:
+    build: 
+     context: .
+     dockerfile: DockerfileKibana
+    image: kafka-kibana
+    container_name: kibana
+    links:
+      - "ElasticSearch:9200"
+    networks:
+     kafka-network:
+      aliases:
+      - kibana
+    ports:
+      - "5601:5601"
+    expose:
+      - "5601"      
+    depends_on:
+    - Filebeat
+    - ElasticSearch  
+  Logstash:
+    build:  
+     context: .
+     dockerfile: DockerfileLogstash    
+    image: kafka-logstash    
+    container_name: logstash
+    networks:
+     kafka-network:
+      aliases:
+      - logstash
+    ports:
+      - "9600:9600"
+    expose:
+      - "9600"      
+    depends_on:
+      - Filebeat
+      - ElasticSearch
+      - Kibana           
+networks:
+    kafka-network:
+     external:
+      name: kafka_network
+     

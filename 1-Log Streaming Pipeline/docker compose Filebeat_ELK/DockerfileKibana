@@ -1,0 +1,11 @@
+FROM cern/cc7-base:20190522
+WORKDIR /root
+#ENV KIBANA_BIN_FOLDER /root/kibana-7.3.2-linux-x86_64/bin
+RUN /bin/bash -c 'yum -y install wget; \
+	yum -y install java-1.8.0-openjdk; \
+	wget https://artifacts.elastic.co/downloads/kibana/kibana-7.3.2-linux-x86_64.tar.gz; \
+	yum install -y perl-Digest-SHA; \
+	shasum -a 512 kibana-7.3.2-linux-x86_64.tar.gz; \
+	tar -xzf kibana-7.3.2-linux-x86_64.tar.gz;'
+COPY kibana.yml /root/kibana-7.3.2-linux-x86_64/config/kibana.yml
+ENTRYPOINT ["/root/kibana-7.3.2-linux-x86_64/bin/kibana", "--allow-root", "-c", "/root/kibana-7.3.2-linux-x86_64/config/kibana.yml"]

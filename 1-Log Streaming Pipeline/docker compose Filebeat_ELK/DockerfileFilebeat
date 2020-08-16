@@ -1,0 +1,8 @@
+FROM cern/cc7-base:20190522 
+WORKDIR /root
+RUN /bin/bash -c 'yum -y install wget; \
+	wget https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-7.3.2-linux-x86_64.tar.gz; \
+	tar -xzf filebeat-7.3.2-linux-x86_64.tar.gz; \
+	mkdir /root/logstream;'
+COPY filebeat.yml /root/filebeat-7.3.2-linux-x86_64/filebeat.yml
+ENTRYPOINT ["/root/filebeat-7.3.2-linux-x86_64/filebeat", "-e", "-c", "/root/filebeat-7.3.2-linux-x86_64/filebeat.yml"]

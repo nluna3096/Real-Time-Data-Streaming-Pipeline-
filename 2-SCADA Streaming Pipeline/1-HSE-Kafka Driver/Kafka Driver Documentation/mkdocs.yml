@@ -1,0 +1,64 @@
+site_name: Vacuum Controls Software Documentation
+site_description: Documentation Repository for Vacuum Controls
+site_author: CERN Authoring
+site_url: https://vacuumsoftwaredocs.web.cern.ch/
+
+repo_name: GitLab
+repo_url: https://gitlab.cern.ch/VACCO/vacsoftwaredocs
+edit_uri: 'blob/master/docs'
+
+theme:
+    name: material
+
+nav:
+    - Introduction: index.md
+    - 'Data Pipeline':
+        - 'Introduction': DataPipeline/introduction.md
+        - 'WinCC-OA Kafka Driver':
+            - 'Overview': DataPipeline/overview.md
+            - 'How to compile the Kafka driver binary': DataPipeline/compilation.md
+            - 'How to run the Kafka Driver on WinCC-OA ': DataPipeline/execution.md
+            - 'Security configurations for accessing CERN Kafka Cluster': DataPipeline/kafka_cluster.md
+            - 'How to run a Kafka consumer': DataPipeline/consumer.md
+            - 'Validation': DataPipeline/validation.md
+        - 'WinCC-OA Streaming':
+            - 'Architecture': DataPipeline/architecture.md
+            - 'Streaming': DataPipeline/streaming.md
+            - 'Streaming Test': DataPipeline/streaming_test.md          
+    - 'Exporter': Exporter/index.md
+    - 'Machine DB Editor': MachineDbEditor/index.md
+    - 'Master DB Editor': MasterDbEditor/index.md
+    - 'Synchronizer': Synchronizer/index.md
+    - 'SCADA Development Guides':
+        - 'C++ Development How-to': 
+            - 'Requirements': ScadaDevGuides/CppDevelopment/requirements.md
+            - 'Step 1: Install VS2015': ScadaDevGuides/CppDevelopment/install_vs_2015.md
+            - 'Step 2: QT Installation': ScadaDevGuides/CppDevelopment/install_qt.md
+            - 'Step 3: WinCC-OA Installation': ScadaDevGuides/CppDevelopment/install_wccoa.md
+            - 'Step 4: Compile Code in VS2015': ScadaDevGuides/CppDevelopment/compile_vs.md
+            - 'Compiling in Cmd Line': ScadaDevGuides/CppDevelopment/compile_cmd_line.md
+        - 'Continuous Integration':
+            - 'How it works': ScadaDevGuides/ContinuousIntegration/how_it_works.md
+            - 'Troubleshooting': ScadaDevGuides/ContinuousIntegration/troubleshoot.md
+            - 'Configure CI machines': ScadaDevGuides/ContinuousIntegration/machine_ci_configuration.md
+        - 'Quality Guidelines':
+            - 'Introduction': ScadaDevGuides/QualityGuidelines/introduction.md
+            - 'Code Reviews':
+                - 'Introduction': ScadaDevGuides/QualityGuidelines/CodeReviews/introduction.md
+                - 'Reviewer Guidelines': ScadaDevGuides/QualityGuidelines/CodeReviews/reviewer_guidelines.md
+                - 'Author Guidelines': ScadaDevGuides/QualityGuidelines/CodeReviews/author_guidelines.md
+        - 'SCADA Update Guide':
+            - 'Step 1: Verifications': ScadaDevGuides/MachineUpdates/prior_verifications.md
+            - 'Step 2: Connect to SCADA server': ScadaDevGuides/MachineUpdates/connect_to_server.md
+            - 'Step 3: Ensure no Users': ScadaDevGuides/MachineUpdates/ensure_no_users.md
+            - 'Step 4: Stop Managers': ScadaDevGuides/MachineUpdates/stopping_managers.md
+            - 'Step 5: Update Code': ScadaDevGuides/MachineUpdates/updating_code.md
+            - 'Step 6: Update DP Data': ScadaDevGuides/MachineUpdates/copy_data.md
+            - 'Step 7: Update DP Types': ScadaDevGuides/MachineUpdates/import_dp_types.md
+            - 'Step 8: Import Datapoints': ScadaDevGuides/MachineUpdates/import_data.md
+            - 'Step 9: Re-enable Managers': ScadaDevGuides/MachineUpdates/enabling_managers.md
+            - 'Step 10: Ensure SCADA is accessible': ScadaDevGuides/MachineUpdates/ensure_users_can_connect.md
+            - 'Step 11: Import Logging-DB Configuration': ScadaDevGuides/MachineUpdates/logging_db_config.md
+            - 'Step 12: Final Verifications': ScadaDevGuides/MachineUpdates/final_verifications.md
+    - 'SCADA Functionalities': ScadaFunctionalities/index.md
+    - 'vacDB': VacDB/index.md

@@ -1,0 +1,66 @@
+---
+actions:
+  1:
+    action: close
+    description: Close old web apps indexes
+    filters:
+      - filtertype: age
+        direction: older
+        unit: months
+        unit_count: 6
+        source: name
+        timestring: '%Y.%m'
+      - filtertype: pattern
+        kind: prefix
+        value: vacelastic-logs-web-v1-
+        exclude:
+    options:
+      ignore_empty_list: true
+  2:
+    action: delete_indices
+    description: Delete old web apps indexes
+    filters:
+      - filtertype: age
+        direction: older
+        unit: months
+        unit_count: 6
+        source: name
+        timestring: '%Y.%m'
+      - filtertype: pattern
+        kind: prefix
+        value: vacelastic-logs-web-v1-
+        exclude:
+    options:
+      ignore_empty_list: true
+  3:
+    action: close
+    description: Close old SCADA indexes
+    filters:
+      - filtertype: age
+        direction: older
+        unit: months
+        unit_count: 6
+        source: name
+        timestring: '%Y.%m'
+      - filtertype: pattern
+        kind: prefix
+        value: vacelastic-logs-scada-v1-
+        exclude:
+    options:
+      ignore_empty_list: true
+  4:
+    action: delete_indices
+    description: Delete old SCADA indexes
+    filters:
+      - filtertype: age
+        direction: older
+        unit: months
+        unit_count: 6
+        source: name
+        timestring: '%Y.%m'
+      - filtertype: pattern
+        kind: prefix
+        value: vacelastic-logs-scada-v1-
+        exclude:
+    options:
+      ignore_empty_list: true

@@ -1,0 +1,22 @@
+{
+    "order" : 1,
+    "template" : "vacelastic-*",
+    "settings" : { "index.number_of_shards" : "1"  ,
+                   "index.search.slowlog.threshold.fetch.warn" : "1s",
+                   "index.search.slowlog.threshold.query.warn" : "10s",
+                   "indexing.slowlog.level":"info",
+                   "indexing.slowlog.threshold.index.warn" : "10s",
+                   "indexing.slowlog.threshold.index.info" : "5s" },
+    "mappings": {
+        "dynamic_templates": [
+            {
+		"default" : {
+		    "match_mapping_type" : "*",
+		    "mapping" : {
+			"norms" : "false"
+		    }
+		}
+            }
+	]
+    }
+}

@@ -1,0 +1,11 @@
+FROM cern/cc7-base:20190522
+WORKDIR /root/kafka
+ENV KAFKA_BIN_FOLDER /root/kafka/kafka_2.12-2.2.0/bin
+ENV KAFKA_CONFIG_FOLDER /root/kafka/kafka_2.12-2.2.0/bin
+RUN /bin/bash -c 'yum -y install wget; \
+	yum -y install java-1.8.0-openjdk; \
+	yum -y install vim; \
+	wget http://www.pirbot.com/mirrors/apache/kafka/2.2.0/kafka_2.12-2.2.0.tgz; \
+	tar -xzf kafka_2.12-2.2.0.tgz;'
+RUN echo 'export PATH=/root/kafka/kafka_2.12-2.2.0/bin:$PATH' >> /root/.bashrc
+ENTRYPOINT ["sleep","infinity"]

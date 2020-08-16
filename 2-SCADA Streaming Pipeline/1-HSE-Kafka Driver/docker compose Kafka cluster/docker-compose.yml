@@ -1,0 +1,92 @@
+version: '3'
+services:
+  Zookeeper:
+    build: 
+     context: .
+     dockerfile: DockerfileZookeeper
+    image: kafka-zookeeper
+    container_name: zookeeper
+    networks:
+     kafka-network:
+      aliases:
+      - zookeeper
+    ports:
+    - "2181:2181"
+  Broker1:
+    build:
+     context: .
+     dockerfile: DockerfileBroker1
+    image: kafka-broker1
+    container_name: broker1
+    networks:
+     kafka-network:
+      aliases:
+      - broker1
+    ports:
+    - "9092:9092"
+    depends_on:
+    - Zookeeper
+  Broker2:
+    build: 
+     context: .
+     dockerfile: DockerfileBroker2
+    image: kafka-broker2
+    container_name: broker2
+    networks:
+     kafka-network:
+      aliases:
+      - broker2
+    ports:
+    - "9093:9092"
+    depends_on:
+    - Zookeeper
+  Consumer:
+    build: 
+     context: .
+     dockerfile: DockerfileKafkaClient
+    image: kafka-client
+    container_name: producer
+    networks:
+     kafka-network:
+      aliases:
+      - producer
+    depends_on:
+    - Zookeeper
+    - Broker1
+    - Broker2
+  Producer:
+    build: 
+     context: .
+     dockerfile: DockerfileKafkaClient
+    image: kafka-client
+    container_name: consumer
+    networks:
+     kafka-network:
+      aliases:
+      - consumer
+    depends_on:
+    - Zookeeper
+    - Broker1
+    - Broker2  
+  Kafdrop:
+    image: obsidiandynamics/kafdrop
+    container_name: kafdrop
+    networks:
+     kafka-network:
+      aliases:
+      - kafdrop
+    environment:
+    - ZOOKEEPER_CONNECT=zookeeper:2181
+    - KAFKA_BROKERCONNECT=broker1:9092
+    - JVM_OPTS=-Xms32M -Xmx64M
+    - "SERVER_SERVLET_CONTEXTPATH=/"
+    ports:
+      - "9000:9000"
+    depends_on:
+    - Zookeeper
+    - Broker1
+    - Broker2  
+networks:
+    kafka-network:
+     external:
+      name: kafka_network

@@ -1,0 +1,15 @@
+# This file is where you define your pipelines. You can define multiple.
+# For more information on multiple pipelines, see the documentation:
+#   https://www.elastic.co/guide/en/logstash/current/multiple-pipelines.html
+
+# pipeline.id: main
+# path.config: "/etc/logstash/conf.d/*.conf"
+# queue.type: persisted
+- pipeline.id: scada-pipeline
+  path.config: "/etc/logstash/conf.d/scada-logstash-filter.conf"
+  pipeline.workers: 1
+  queue.type: persisted
+- pipeline.id: web_apps-pipeline
+  path.config: "/etc/logstash/conf.d/web_apps-logstash-filter.conf"
+  pipeline.workers: 1
+  queue.type: persisted

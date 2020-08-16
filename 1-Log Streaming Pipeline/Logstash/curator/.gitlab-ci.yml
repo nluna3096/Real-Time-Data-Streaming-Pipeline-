@@ -1,0 +1,18 @@
+---
+image: gitlab-registry.cern.ch/linuxsupport/cc7-base
+
+stages:
+  - lint
+
+jsonlint:
+  stage: lint
+  script:
+    - yum install -y yajl
+    - ls templates/
+    - for f in templates/* ; do echo "HELLO $f"; cat $f |json_verify; done
+yamllint:
+  stage: lint
+  script:
+    - yum install -y yamllint
+    - export FILE=curator4.actions
+    - \[ ! -f ${FILE} \] || (echo "checking $FILE" &&  yamllint $FILE )

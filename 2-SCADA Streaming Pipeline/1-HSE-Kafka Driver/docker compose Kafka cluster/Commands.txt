@@ -1,0 +1,23 @@
+﻿#Zookeeper
+docker build -f DockerfileZookeeper . -t kafka-zookeeper
+docker run --net kafka_network --name zookeeper --network-alias=zookeeper –p 2181:2181 -dit kafka-zookeeper
+
+#Broker1
+docker build -f DockerfileBroker1 . -t kafka-broker1
+docker run --net kafka_network --name broker1 --network-alias=broker1 -p 9092:9092 -t kafka-broker1
+
+#Broker2
+docker build -f DockerfileBroker2 . -t kafka-broker2
+docker run --net kafka_network --name broker2 --network-alias=broker2 -p 9093:9092 -t kafka-broker2
+
+#To start a server to inspect docker
+docker run -d --rm -p 9000:9000 -net kafka_network -e ZOOKEEPER_CONNECT=zookeeper:2181 -e KAFKA_BROKERCONNECT=broker1:9092 -e JVM_OPTS="-Xms32M -Xmx64M" -e SERVER_SERVLET_CONTEXTPATH="/" obsidiandynamics/kafdrop
+
+#Using docker compose - DO NOT RUN COMMANDS BEFORE
+docker network create kafka_network
+docker-compose -f docker-compose.yml build
+docker-compose -f docker-compose.yml up
+
+#To stream a file open a new kafka-client, copy the configuration file connect-file-source.properties to the kafka config folder and run
+docker run --net kafka_network --name fileStreamer --network-alias=fileStreamer -v C:\datapipeline\logstream:/root/logstream -dit kafka-client
+connect-standalone.sh config/connect-standalone.properties config/connect-file-source.properties

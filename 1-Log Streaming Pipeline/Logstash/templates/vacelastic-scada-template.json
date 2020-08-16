@@ -1,0 +1,44 @@
+{
+    "order" : 5,
+    "template" : "vacelastic-logs-scada-v1-*",
+    "settings" : {
+	  "index.refresh_interval" : "5s"
+    },  
+    "mappings" : {
+	  "properties" : {
+		"@timestamp" : {
+		  "type" : "date"
+		},
+		"@version" : {
+		  "type" : "keyword"
+		},
+        "fields" : {
+          "properties" : {
+            "app_id" : {
+              "type" : "keyword"			 
+            }
+          }
+        },
+		"host" : {
+		  "properties" : {
+			"name" : {
+			  "type" : "keyword"
+			}
+		  }
+		},
+		"level" : {
+		  "type" : "keyword"
+		},
+
+		"managerID" : {
+		  "type" : "keyword"
+		},
+		"message" : {
+		  "type" : "text"
+		},
+		"type" : {
+		  "type" : "keyword"
+		}	   
+	  }
+    }  
+}
