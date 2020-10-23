@@ -19,7 +19,7 @@ and analysing data being sent in real-time from the servers, but in a centralize
 
 # Contents
 
-This project has been divided into two parts.
+This project has been divided into two parts (folders 1 and 2).
 
 First part (1-Log Streaming Pipeline), deals with the real-time streaming of log messages. As a result of this first pipeline, we will be able to gather (all at the same time), logs coming from the different vacuum servers.
 This will help experts at vacuum creating their own dashboards with the collected data as well as detecting unexpected situations along the 100 km vacuum lines in the monitoring process.
@@ -38,3 +38,5 @@ Since data at vacuum is stored and managed by an industrial tool called WinCC-OA
     Main tools and technologies used in this project are: WinCC-OA, CMake, Make, Kafka, Docker, Git.
     
 A performance evaluation was carried out to select the most convenient option. This has been performed by means of the extraction of several metrics (delay and throughput) with some Python scripts. This helps us determining the effectiveness of each of the approaches.
+
+If you just want to have a more generic idea of the project's content, you can directly refer to the file "Presentation_Master_Thesis", a presentation summarising all concepts.
